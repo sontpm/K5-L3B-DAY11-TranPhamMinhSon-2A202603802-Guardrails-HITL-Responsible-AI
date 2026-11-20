@@ -170,7 +170,11 @@ def get_openai_api_key() -> str:
 
 
 def red_openai_client_kwargs() -> dict:
-    return {"api_key": get_openai_api_key() or None}
+    # OPENAI_BASE_URL cho phép dùng provider OpenAI-compatible (vd NanoGPT).
+    return {
+        "api_key": get_openai_api_key() or None,
+        "base_url": os.environ.get("OPENAI_BASE_URL", "").strip() or None,
+    }
 
 
 def red_provider_label(tier: str = "advance") -> str:
